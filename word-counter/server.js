@@ -10,12 +10,8 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('/word/:word', function(req, res, next) {
-    req.body = { words: sanitize(req.params.word) }
-    next()
-})
-app.use('/words/:words', function(req, res, next) {
-    req.body = { words: sanitize(req.params.words) }
+app.use(['/word/:words', '/words/:words'], function(req, res, next) {
+    req.body.words = sanitize(req.params.words)
     next()
 })
 

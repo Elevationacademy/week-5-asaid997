@@ -32,7 +32,7 @@ const addWord = function(word) {
         return false
 }
 
-router.post('/word/:word', function(req, res) {
+router.post('/word/:words', function(req, res) {
     const word = req.body.words
     addWord(word)
     res.send({ text: `Added ${word}`, currentCount: wordCounter[word] })
