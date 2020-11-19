@@ -12,25 +12,29 @@ const store = [
     { name: "picture frame", inventory: 31, price: 70 }
 ]
 
-
-// Now add a /priceCheck route which has one parameter: name
-
-// When this route is accessed, it should return the price of the item that was asked for.
-
-// So if someone goes to localhost:3000/priceCheck/couch, they should receive an object in response: {price: 1200}
-
-// If the item doesn't exist, the route should respond with {price: null}
-
-app.get('/priceCheck/:name', function (request, response) {
+app.get('/priceCheck/:name', function(request, response) {
     let item = store.find(items => items.name === request.params.name)
-    if(item === undefined)
-        item.price = null
+    if (item === undefined)
+        item = { price: null }
 
-    response.send({price: item.price})
+    response.send({ price: item.price })
 })
 
+// Create another route in your server.js file called /buy which has one parameter: name
+
+// Accessing this route should reduce the inventory of that item by 1.
+
+// So if someone makes a request to localhost:3000/buy/chair, it should reduce the inventory of chair to 15. Make sure your route responds with the updated item.
+
+app.get('/buy/:name', function(request, response) {
+    let item = store.find(items => items.name === request.params.name)
+    if (item === undefined)
+        item = { price: null }
+
+    response.send({ price: item.price })
+})
 
 const port = 3000
-app.listen(port, function(){
+app.listen(port, function() {
     console.log(`Running server on port ${port}`)
 })
